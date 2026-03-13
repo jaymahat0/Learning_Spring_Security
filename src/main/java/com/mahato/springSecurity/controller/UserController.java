@@ -17,9 +17,14 @@ public class UserController {
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
-    @PostMapping("/reg")
+    @PostMapping("/register")
     public User register(@RequestBody User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userService.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        return userService.verifyUser(user);
     }
 }
